@@ -1,112 +1,487 @@
+<div align="center">
 
-# RENTAL HOUSE MANAGEMENT SYSTEM
-[![GitHub license](https://img.shields.io/github/license/shumwe/rental-house-management-system)](https://github.com/shumwe/rental-house-management-system)
-[![GitHub issues](https://img.shields.io/github/issues/shumwe/rental-house-management-system)](https://github.com/shumwe/rental-house-management-system/issues)
-[![GitHub forks](https://img.shields.io/github/forks/shumwe/rental-house-management-system)](https://github.com/shumwe/rental-house-management-system/network)
-[![GitHub stars](https://img.shields.io/github/stars/shumwe/rental-house-management-system)](https://github.com/shumwe/rental-house-management-system/stargazers)
+<img width="220" src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" />
 
-RHMS is a web-based application developed using the _Django framework_. The aim is to help tenants and rental house managers track 
-rental arears and utility(water and electricity) payments while at the same time providing a communication chain, manager &harr; tenants
-that is free from disruptions. Both parties are able to view and visualize previous payments and consumption details (for electricity and water)
-at any particular time.
+# 🏠 Rental House Management System
 
+### Plataforma web de gestión inmobiliaria y administración de alquileres 🚀
 
-**Currently included functionalities for the managers**
+<p align="center">
+  <b>Rental House Management System (RHMS)</b> es una plataforma desarrollada con Django para automatizar la gestión de propiedades, pagos de renta, servicios públicos y comunicación entre administradores e inquilinos.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/RentalManagement-System-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Django-WebFramework-092E20?style=for-the-badge&logo=django&logoColor=white">
+  <img src="https://img.shields.io/badge/Python-Backend-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/OpenSource-Community-success?style=for-the-badge">
+</p>
+
+<p align="center">
+  <a href="#-acerca-del-proyecto">Acerca</a> •
+  <a href="#-módulos-del-sistema">Módulos</a> •
+  <a href="#-características">Características</a> •
+  <a href="#-tecnologías-utilizadas">Tecnologías</a> •
+  <a href="#-vista-previa">Vista previa</a>
+</p>
+
+</div>
+
+---
+
+# 🌌 Acerca del proyecto
+
+**Rental House Management System (RHMS)** es una aplicación web diseñada para ayudar a administradores inmobiliarios e inquilinos a gestionar propiedades, pagos de servicios y comunicación de manera eficiente y sin interrupciones.
+
+La plataforma permite visualizar pagos anteriores, consumo de electricidad y agua, reportes de mantenimiento y notificaciones dentro de un sistema centralizado.
+
+El sistema fue desarrollado para:
+
+- 🏠 Gestionar propiedades
+- 👥 Administrar inquilinos
+- 💳 Gestionar pagos de renta
+- ⚡ Monitorear consumo eléctrico
+- 💧 Controlar consumo de agua
+- 📅 Programar visitas
+- 📩 Gestionar comunicaciones
+- 📊 Visualizar reportes
+
+---
+
+# ✨ Características
+
+## 🏘️ Gestión inmobiliaria
+
+- 🏠 Registro de propiedades
+- 🏢 Gestión de edificios
+- 📋 Administración de unidades
+- 🖼️ Gestión multimedia
+- ⚙️ Control de mantenimiento
+
+---
+
+## 💳 Gestión de pagos y servicios
+
+- 💰 Administración de rentas
+- ⚡ Seguimiento de electricidad
+- 💧 Seguimiento de agua
+- 📊 Historial de pagos
+- 📈 Visualización de consumos
+
+---
+
+## 👥 Gestión de usuarios
+
+- 👤 Registro de inquilinos
+- 🔐 Inicio de sesión
+- 📄 Gestión de perfiles
+- 📧 Confirmación por correo
+- ⚡ Administración centralizada
+
+---
+
+## 📩 Comunicación y reportes
+
+- 📧 Mensajería integrada
+- 📋 Gestión de quejas
+- 🛠️ Reportes de mantenimiento
+- 📅 Programación de visitas
+- 🚪 Gestión de desalojos
+
+---
+
+# 👨‍💼 Módulos del sistema
+
+## 👤 Accounts Module
+
+Este módulo administra usuarios y autenticación.
+
+### Funcionalidades:
+
+- 🔐 Registro e inicio de sesión
+- 👤 Gestión de perfiles
+- 📧 Verificación de correo
+- 🔑 Recuperación de contraseña
+- ⚡ Administración de cuentas
+
+---
+
+## 🏠 Rental Property Module
+
+Este módulo administra propiedades y unidades.
+
+### Funcionalidades:
+
+- 🏢 Gestión de edificios
+- 🏠 Administración de unidades
+- 📍 Gestión de ubicaciones
+- 🖼️ Álbumes de propiedades
+- ⚙️ Notificaciones de mantenimiento
+
+---
+
+## 💳 Utilities & Rent Module
+
+Este módulo controla pagos y servicios públicos.
+
+### Funcionalidades:
+
+- 💰 Gestión de pagos
+- ⚡ Seguimiento eléctrico
+- 💧 Seguimiento de agua
+- 📈 Historial de consumo
+- 📋 Facturación
+
+---
+
+## 🛠️ Complaints & Reports Module
+
+Este módulo gestiona reportes y soporte.
+
+### Funcionalidades:
+
+- 📋 Reportes de unidades
+- 🚨 Gestión de quejas
+- 📞 Contactos de ayuda
+- 🛠️ Solicitudes de mantenimiento
+- 📄 Historial de incidencias
+
+---
+
+## 📅 Work Order Module
+
+Este módulo administra órdenes de trabajo y personal.
+
+### Funcionalidades:
+
+- 👷 Gestión de personal
+- 📋 Órdenes de trabajo
+- 💰 Pagos de servicios
+- 📊 Seguimiento operativo
+- ⚡ Administración técnica
+
+---
+
+# 🛠️ Tecnologías utilizadas
+
+## 🎨 Frontend
+
+<p>
+  <img src="https://skillicons.dev/icons?i=html,css,bootstrap,js" />
+</p>
+
+- HTML5
+- CSS3
+- Bootstrap
+- JavaScript
+
+---
+
+## ⚙️ Backend
+
+<p>
+  <img src="https://skillicons.dev/icons?i=python,django" />
+</p>
+
+- Python
+- Django Framework
+- Arquitectura MVC
+- Gestión de sesiones
+
+---
+
+## 🗄️ Base de datos
+
+<p>
+  <img src="https://skillicons.dev/icons?i=postgres,mysql" />
+</p>
+
+- PostgreSQL
+- MySQL
+- Relaciones SQL
+- Persistencia de datos
+
+---
+
+## 🧰 Herramientas
+
+<p>
+  <img src="https://skillicons.dev/icons?i=git,github,vscode" />
+</p>
+
+- Git
+- GitHub
+- Visual Studio Code
+- Pip
+- Virtualenv
+
+---
+
+# 📂 Estructura del proyecto
+
+```bash
+rental-house-management-system/
+│
+├── accounts/                 # Gestión de usuarios
+├── complaints/               # Reportes y quejas
+├── core/                     # Funciones principales
+├── rental_property/          # Propiedades y unidades
+├── utils/                    # Servicios y pagos
+├── work_order/               # Órdenes de trabajo
+├── reporting/                # Reportes administrativos
+├── relationships/            # Diagramas relacionales
+├── templates/                # Plantillas HTML
+├── static/                   # Recursos estáticos
+├── manage.py                 # Entrada principal Django
+├── requirements.txt
+├── README.md
+└── LICENSE
 ```
 
-- [x] Utility (Electricity & Water) Tracking and Management
-- [x] Payments Management
-- [x] Adding Rental Houses
-- [x] Building updates
-- [x] Add Managers
-- [x] Tenant Management
-- [x] Hired Personnel Management
-- [x] Work Order Management
-- [x] Reports, complaints and Maintenance Management
-- [X] Visits Scheduling and Management 
-- [X] Email Communications and Notifications Management
-- [x] Eviction Management
-- [x] Managing Move Out Notices
-```
-**Currently included tenants' functionalities**
-```
+---
 
-- [x] Personal Rent and utility tracking (visualizing electricity & water consumtion)
-- [ ] Online payments submission (Mpesa Integration & stripe)
-- [x] View payments history
-- [x] Keep track of notices made by managers
-- [x] View receieved notices & create moveout notice
-- [x] View and send tenancy related emails using the platform
-- [x] Make Complaints
-- [x] Create house reports
-- [x] Submit service rating (30 days from preveous rating)
-```
-**Shared Funtionalities**
-```
-- [x] Account Management
-    - SignUp & login, password change/reset, email confiration, profile update
-- [x] Online messaging
-- [x] Contact
-- [x] Scheduling visits
-- [x] Searching
+# ⚡ Instalación
+
+## 📋 Requisitos
+
+- Python 3.9+
+- Django
+- PostgreSQL / MySQL
+- Pip
+- Virtualenv
+
+---
+
+# 🚀 Configuración del proyecto
+
+## 1️⃣ Clonar repositorio
+
+```bash
+git clone https://github.com/isairey/rental-house-management-system.git
 ```
 
-## Modules
+---
 
+## 2️⃣ Crear entorno virtual
 
-- [Accounts](https://github.com/shumwe/rental-house-management-system/tree/main/accounts)
-    - User
-    - Profiles
-    - Managers
-    - Tenants
+```bash
+python -m venv venv
+```
 
-- [Core](https://github.com/shumwe/rental-house-management-system/tree/main/core)
-    - Contact
-        - Contacts Reply
-    - Unit Tour | Visits
-    - Move OutNotice
-    - Eviction Notice
-    - Service rating
-    - Communications & Emails
+---
 
-- [Complaints & Reports ](https://github.com/shumwe/rental-house-management-system/tree/main/complaints)
-    - Unit Report Type
-    - Unit Report
-    - Unit Report Album
-    - Complaints
-    - Help Contacts
+## 3️⃣ Activar entorno virtual
 
-- [Rental Property](https://github.com/shumwe/rental-house-management-system/tree/main/rental_property)
-    - Counties
-        - Estate
-        - Building
-            - Unit Type
-            - Rental Unit
-                - Unit Album
-            - MaintananceNotice
+### Windows
 
-- [Utilities & Rent](https://github.com/shumwe/rental-house-management-system/tree/main/utils)
-    - Payment Methods
-    - Rent Details
-        - Rent Payment
-    - Water Billing
-        - Consumption Tracking
-        - Payments
-    - Electricity Billing
-        - Consumption Tracking
-        - Payments
+```bash
+venv\Scripts\activate
+```
 
-- [Work Order](https://github.com/shumwe/rental-house-management-system/tree/main/work_order)
-    - Hired Personnel
-        - Personnel Contact
-    - Work Order
-        - WorkOrderPayments
+### Linux / macOS
 
-- [Reporting](https://github.com/shumwe/rental-house-management-system/tree/main/reporting)
-    - ** Reports
+```bash
+source venv/bin/activate
+```
 
-The entire relaltionship structure can be found [here](https://github.com/shumwe/rental-house-management-system/tree/main/relationships/relationships.png) or a view the dot [file](https://github.com/shumwe/rental-house-management-system/tree/main/relationships/dotfile.dot)
+---
 
+## 4️⃣ Instalar dependencias
 
+```bash
+pip install -r requirements.txt
+```
 
-[Requirements](https://github.com/shumwe/rental-house-management-system/tree/main/requirements.txt )
+---
+
+## 5️⃣ Configurar base de datos
+
+Editar:
+
+```bash
+settings.py
+```
+
+Agregar:
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'rhms',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+```
+
+---
+
+## 6️⃣ Ejecutar migraciones
+
+```bash
+python manage.py migrate
+```
+
+---
+
+## 7️⃣ Ejecutar servidor
+
+```bash
+python manage.py runserver
+```
+
+---
+
+# 📊 Funcionalidades principales
+
+## 🏠 Gestión inmobiliaria
+
+- Administración de propiedades
+- Gestión de edificios
+- Control de mantenimiento
+- Programación de visitas
+
+---
+
+## 💳 Gestión financiera
+
+- Seguimiento de pagos
+- Historial de rentas
+- Facturación de servicios
+- Control de consumos
+
+---
+
+## 👥 Gestión de usuarios
+
+- Registro y autenticación
+- Gestión de perfiles
+- Mensajería integrada
+- Comunicación administrador ↔ inquilino
+
+---
+
+# 📸 Vista previa
+
+## 🖥️ Interfaces del sistema
+
+<div align="center">
+
+### 🏠 Dashboard principal
+![Dashboard](https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1200&auto=format&fit=crop)
+
+### 🔐 Inicio de sesión
+![Login](https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop)
+
+### 🏘️ Gestión de propiedades
+![Properties](https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop)
+
+### 💳 Gestión de pagos
+![Payments](https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop)
+
+### ⚡ Seguimiento de servicios
+![Utilities](https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=1200&auto=format&fit=crop)
+
+### 📋 Reportes y mantenimiento
+![Reports](https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop)
+
+### 👥 Gestión de usuarios
+![Users](https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop)
+
+### 📊 Panel administrativo
+![Admin](https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop)
+
+</div>
+
+---
+
+# 🧠 Objetivos del proyecto
+
+## 🎯 Aprendizaje y administración
+
+- Desarrollo web con Django
+- Gestión inmobiliaria
+- Bases de datos relacionales
+- Sistemas de autenticación
+- Automatización de pagos
+- Comunicación integrada
+- Arquitectura MVC
+
+---
+
+# 🚧 Roadmap
+
+## 🔮 Próximas mejoras
+
+- 📱 Aplicación móvil
+- 💳 Integración Stripe y Mpesa
+- ☁️ Infraestructura cloud
+- 🤖 Reportes inteligentes
+- 🌐 API REST moderna
+- 🔔 Notificaciones push
+- 📈 Analytics avanzados
+
+---
+
+# 🤝 Contribuciones
+
+Las contribuciones son bienvenidas ❤️
+
+## Cómo contribuir
+
+1. Fork del proyecto
+
+```bash
+git checkout -b feature/nueva-funcionalidad
+```
+
+2. Commit
+
+```bash
+git commit -m "✨ Nueva funcionalidad"
+```
+
+3. Push
+
+```bash
+git push origin feature/nueva-funcionalidad
+```
+
+4. Pull Request 🚀
+
+---
+
+# 👨‍💻 Desarrollador
+
+<div align="center">
+
+## RHMS Team — Django Developers
+
+Desarrolladores apasionados por plataformas inmobiliarias y automatización administrativa 🚀
+
+</div>
+
+---
+
+# 🌟 Apoya el proyecto
+
+⭐ Dale una estrella  
+🍴 Haz fork  
+📢 Comparte el proyecto
+
+---
+
+# 📜 Licencia
+
+Proyecto open source orientado al aprendizaje y administración inteligente de propiedades y alquileres.
+
+---
+
+<div align="center">
+
+### 🏠 Rental House Management System — administración moderna de propiedades y alquileres 🚀
+
+</div>
