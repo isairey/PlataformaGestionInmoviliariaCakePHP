@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block metadescription %}Availale Buildings {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block extra_css %} 
+<style type="text/css">
+          a:link { text-decoration: none; }
+    </style>
+{% endblock %}
+{% block content %} 
+
+<section class="container mt-2" style="border-radius: 1rem;">
+    <form method='get'>
+        <h4 class="mb-3 card-header text-center btn-outline-success"> Available Vacancies </h4>
+      <div class="row g-3">
+        <div class="col-5">
+            {{operational_buildings.form.county|as_crispy_field}}
+        </div>
+        <div class="col-7">
+            {{operational_buildings.form.address_line|as_crispy_field}}
+        </div>
+        <div class="col-10 text-center">
+            <button type="submit" class="form-group btn btn-outline-secondary ">
+                <span class="fa fa-search"></span> Search
+              </button>
+        </div>
+    </div>
+</form>
+<hr/>
+
+    <div class="row row-cols-1 row-cols-md-3 g-3 mt-3">
+        {% for building in operational_buildings.qs %}
+        <div class="col-md-4 col-sm-4 mb-2">
+            <div class="card">
+                <a href="{{building.get_url}}">
+                <div class="card-header card-header-success card-header-icon">
+                  <div class="card-icon">
+                    <em class="material-icons">apartment</em>
+                    <p class="card-category">{{building.get_building_status_display}}</p>
+                  </div>
+                  <h3 class="card-title">{{building.name}}</h3>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{building.address_line}}</small><br>
+                    <small class="text-muted">County : {{building.county}}</small> <br>
+                    <small class="text-muted">Nairobi : {{building.country}}</small>
+                </div>
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="row g-4">
+            <p> We have no property available in this area at the moment. Please check back later! </p>
+        </div>
+        {% endfor%}
+    </div>
+</section>
+{% endblock %}

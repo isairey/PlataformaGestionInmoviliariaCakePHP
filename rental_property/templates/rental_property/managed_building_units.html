@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block extra_css %}
+
+<style>
+
+.card {
+    border: none;
+    border-radius: 10px
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    background-color: #eee;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 39px
+}
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<nav class="container mt-3">
+  <ol class="breadcrumb bg-light p-2 rounded-2">
+      <li class="breadcrumb-item "><a href="{% url 'building-dashboard' building.slug %}">Dashboard</a></li>
+      <li class="breadcrumb-item active">Building Units</li>
+  </ol>
+</nav>
+
+<section class="container border-0 mt-4 mb-5">
+    <div class="row">
+
+        <!-- overview start -->
+        <div class="container card p-0 mb-3">
+            <div class="card-header text-center w-100">
+              Units Overview 
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card border-0">
+                  <div class="card-body">
+                    <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between border-0 align-items-center">
+                        <strong> Building Name </strong>
+                        <span> {{building.name}} {{tenant.associated_account.last_name}} </span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between border-0 align-items-center">
+                          <strong> Total Units </strong>
+                          <span>  {{total_units}} </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="card border-0">
+                  <div class="card-body">
+                    <canvas id="unitsOverview" data-url="{% url 'units_overview' building.slug %}">
+                    </canvas>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- Overview end-->
+
+        <div class="container">
+            <div class="row">
+              <div class="col-sm-3 mb-3">
+                <a href="{% url 'add-rental-unit' building.slug %}" type="button" class="mb-2 list-group-item list-group-item-action" role="button">Add rental unit</a>
+                  <h4 class="card-header text-center"> Filter Units </h4>
+                <form class="no-padding" method="get">
+                    {{filter_form|crispy}}
+                    <br>
+                    <div class="form-group text-center">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+              </div>
+
+              <div class="col-sm-9">
+                <div class="row">
+                    {% for unit in units %}
+                            <div class="col-md-4">
+                                <div class="card p-3 mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="icon"> <em class="fa fa-home"></em> </div>
+                                            <div class="ms-2 c-details">
+                                                <h6 class="mb-0">{{unit.unit_number}}</h6> <span>{{unit.get_status_display}} </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <ul class="list-group">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">Unit Type
+                                                <span>{{unit.unit_type}}</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">Bathrooms [{{unit.bathrooms}}]
+                                                <span>Bedrooms [{{unit.bedrooms}}] </span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
+                                                <span>{% if unit.water_available %} Water [<em class="fa fa-check"></em>] {% endif %} </span>
+                                                <span>{% if unit.electricity_available %} Electricity [<em class="fa fa-check"></em>] {% endif %}</span>
+                                            </li>
+                                          </ul>
+                                        <div class="mt-1">
+                                            <div class="mt-3"> <span>{{unit.get_maintanance_status_display}}</span> </div>
+                                        </div>
+                                        <div class="card-footer mt-1">
+                                            <p class="text-center"> 
+                                                <a href="{% url 'unit-details' unit.building.slug unit.slug %}" class="btn btn-outline-success">View More</a>
+                                                <a href="{% url 'update-unit' unit.building.slug unit.slug %}" class="btn btn-outline-secondary">Update</a>
+                                            </p>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}      
+                            <div class="col-md-4">
+                                <div class="card p-3 mb-2">
+                                    OOOPS! Nothing to display
+                                </div>
+                            </div>                 
+                          {% endfor %}
+
+                          <div class="mx-auto">
+                            {% if units.paginator.num_pages > 1 %}
+                                <hr>
+                                <div class="text-center">
+                                    {% for pg in units.paginator.page_range %}
+                                        <a href="?page={{pg}}" class="btn btn-primary btn-sm {% if units.number == pg %}active{% endif %}">{{pg}}</a>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </section>
+{% endblock %}

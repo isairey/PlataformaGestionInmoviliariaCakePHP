@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<nav class="container mt-3">
+  <ol class="breadcrumb bg-light p-2 rounded-2">
+      <li class="breadcrumb-item "><a href="{% url 'building-dashboard' building.slug %}">Dashboard</a></li>
+      <li class="breadcrumb-item active"> {{building.name}} </li>
+      <li class="breadcrumb-item"><a href="{% url 'core:evictions' building.slug %}">Evictions</a> </li>
+      <li class="breadcrumb-item active">{{notice.notice_code}}</li>
+  </ol>
+</nav>
+
+<section class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-10">
+                      <div class="card mb-4">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                  <p class="mb-0">Notice Code</p>
+                                </div>
+                                <div class="col-sm-9">
+                                  <p class="text-muted mb-0">{{notice.notice_code}} &nbsp;&nbsp;
+                                    <span><a href="{% url 'core:eviction_view_pdf' building.slug notice.tenant.rented_unit.slug notice.tenant.associated_account.username notice.notice_code %}">GET PGF</a></span>
+                                  </p> 
+                                </div>
+                              </div>
+                              <hr>
+
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <p class="mb-0">Tenant</p>
+                                </div>
+                                <div class="col-sm-9">
+                                  <p class="text-muted mb-0">
+                                      {{notice.tenant.associated_account.first_name}} {{notice.tenant.associated_account.last_name}} | {{notice.tenant.associated_account.username}} </p>
+                                </div>
+                              </div>
+                              <hr>
+
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Eviction Status</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{notice.get_eviction_status_display}}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Building</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{building.name}}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">unit</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{notice.unit.unit_number}}</p>
+                            </div>
+                          </div>
+                          
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Message</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{notice.notice_detail|safe}}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Created</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{notice.created|date}}</p>
+                            </div>
+                          </div>
+                          {% if notice.updated %}
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <a type="button" class="underline" data-bs-toggle="modal" data-bs-target="#evictionUpdateModal"> Last Updated </a>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{notice.updated|timesince}}</p>
+                            </div>
+                          </div>
+                          {% endif %}
+
+                        </div>
+                      </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+    </div>
+</section>
+ <!-- Update eviction modal -->
+ <div class="modal fade" id="evictionUpdateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="evictionUpdateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="evictionUpdateModalLabel">Update Eviction Notice</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" class="no-padding">
+            {% csrf_token %}
+            {{update_form|crispy }}
+            <br>
+            <div class="form-group text-center">
+              <button class="btn btn-outline-secondary" type="submit">Update</button>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end eviction update modal -->
+{% endblock %}

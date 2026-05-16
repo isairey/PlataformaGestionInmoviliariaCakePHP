@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block metadescription %} My water Bills  {% endblock %}
+{% load humanize %}
+
+{% block content %}	
+<nav class="container mt-3">
+  <ol class="breadcrumb bg-light p-2 rounded-2">
+      <li class="breadcrumb-item "><a href="{% url 'operational-buildings' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'profile' %}"> Profile </a></li>
+      <li class="breadcrumb-item"><a href="{% url 'my-rent' building.slug unit.slug tenant.associated_account.username %}"> Rent Charges</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'my_water_billing' building.slug unit.slug tenant.associated_account.username %}">Water Bills </a></li>
+      <li class="breadcrumb-item active">Water Bill Details</li>
+  </ol>
+</nav>
+
+<section class="mb-5 mt-3" style="background-color: #dfe8da;">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+
+        <div class="row">
+            <div class="col-sm-12 col-md-3 colxl-3">
+              <div class="mb-2 d-grid gap-2">
+                <a href="#payments-direct" class="btn btn-outline-success" type="button">Go to payments <em class="fas fa-arrow-down"></em></a>
+              </div>
+            </div>
+
+        <div class="mt-3 col-sm-12 col-md-9 col-xl-9">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5">
+                <h3 class="text-uppercase text-center"> My Water Billing Cycle For "{{water_bill.from_date|naturalday}} - {{water_bill.to_date|naturalday}}" </h3> </h3>
+            
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="ms-2 me-auto">
+                        Building
+                      </div>
+                      <span> {{building.name}} </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="ms-2 me-auto">Unit</div>
+                      <span>{{unit.unit_number}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">Bill Code</div>
+                        <span>{{water_bill.bill_code}}</span>
+                      </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="ms-2 me-auto">Meter</div>
+                      <span> {{water_bill.meter_number}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">Units</div>
+                        {% if water_bill.units %}
+                        <span> {{water_bill.units|intcomma}} </span>
+                        {% else %}
+                        <span> Not Yet Updated </span>
+                        {% endif %}
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto"> Unit Price </div>
+                        <span> KES {{water_bill.unit_price|intcomma}}</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto"> Meter Rent </div>
+                        <span> KES {{water_bill.meter_rent|intcomma}}</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto"> Total Cost </div>
+                        <span> KES {{water_bill.total|intcomma}}</span>
+                      </li> 
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto"> Paid </div>
+                        <span> KES {{water_bill.amount_paid|intcomma}}</span>
+                      </li> 
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto"> Remaining </div>
+                        <span> KES {{water_bill.amount_remaining|intcomma}}</span>
+                      </li> 
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">Cleared </div>
+                        <span> {{water_bill.cleared}} </span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">Status</div>
+                        <span> {% if water_bill.lock_cycle == True %} Closed {% else %} Open {% endif %} </span>
+                      </li>
+
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">Due Date</div>
+                        <span>{% if water_bill.cleared == False %} {{water_bill.due_date}} {% else %} 
+                            <em class="bg-success">{{water_bill.due_date}} {% endif %}</em> </span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                             Last Updated </div>
+                        <span> {{water_bill.updated|naturaltime}} </span>
+                      </li>
+                      <li class="list-group-item border-0 text-center">
+                          {% if water_bill.lock_cycle == True %}
+                            {% if water_bill.cleared == False %}
+                            <a type="button" class="underline" data-bs-toggle="modal" data-bs-target="#waterPaymentBackdrop"> Add Payment </a>
+                            {% else %}
+                            <em class="bg-green" title="Payments cleared"> Payments locked </em>
+                            {% endif %}
+                        {% else %}
+                            <em class="bg-info" title="A pay button will apear when open"> Payments not open </em>
+                        {% endif %}
+                      </li>
+
+                  </ul>
+                <br>
+
+                <div class="table-responsive">
+                <table class="table caption-top">
+                  <caption> Cycles' Readings </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Previous Reading</th>
+                      <th scope="col">Current Reading</th>
+                      <th scope="col">Calculated Consumption</th>
+                      <th scope="col"> Reading Date </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for r in child_readings %}
+                    <tr>
+                      <td>{{r.previous_reading}}</td>
+                      <td>{{r.current_reading}}</td>
+                      <td> {{r.consumption}} </td>
+                      <td> {{r.reading_added|naturalday}} </td>
+                    </tr>
+                    {% empty %}
+                    <tr> 
+                      <td> No Readings yet. </td>
+                    </tr>
+                    {% endfor %} 
+                  </tbody>
+                </table>
+                </div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="mb-4 mt-2">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+  
+        <div class="row">
+        <div class="col-sm-12 col-md-3 col-xl-3">
+          <span id="payments-direct"> </span>
+        </div>
+  
+        <div class="col-sm-12 col-md-9 col-xl-9 card table-responsive shadow-lg p-3 mb-5" style="border-radius: 1rem;">
+          <table class="table caption-top">
+            <caption> Payments submitted for this cycle </caption>
+            <thead>
+              <tr>
+                <th scope="col">Payment Code</th>
+                <th scope="col">Paid Amount</th>
+                <th scope="col">Payment Method</th>
+                <th scope="col"> Date </th>
+                <th scope="col"> Status </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in payments_made %}
+              <tr>
+                <td>{{p.payment_code}}</td>
+                <td>KES {{p.amount}}</td>
+                <td> {{p.payment_method}} </td>
+                <td> {{p.date_paid|naturalday}} </td>
+                <td> {{p.get_status_display}}</td>
+                {% if p.lock %}
+                <td title="payment locked"> <em class="fa fa-lock"></em> </td>
+                {% else %}
+                <td title="payment still open"> <em class="fa fa-lock-open"></em> </td>
+                {% endif %}
+              </tr>
+              {% empty %}
+              <tr> 
+                <td> No payments submitted. </td>
+              </tr>
+              {% endfor %} 
+            </tbody>
+          </table>
+          </div>
+        </div>
+  
+      </div>  
+    </div>
+  </section>
+
+  <div class="modal fade" id="waterPaymentBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="waterPaymentBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="waterPaymentBackdropLabel">Add Water Bill Payments</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" class="no-padding">
+              {% csrf_token %}
+              {{bill_pay_form|crispy }}
+              <br>
+              <div class="form-group text-center">
+                <button class="btn btn-outline-secondary" type="submit">Submit</button>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end modal -->
+</section>
+{% endblock %}

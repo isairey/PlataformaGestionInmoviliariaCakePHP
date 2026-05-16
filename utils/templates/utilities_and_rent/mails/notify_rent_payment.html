@@ -1,0 +1,233 @@
+{% load humanize %}
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title> Rent Notification</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <style type="text/css">
+            @media screen {
+                @font-face {
+                    font-family: 'Lato';
+                    font-style: normal;
+                    font-weight: 400;
+                    src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+                }
+    
+                @font-face {
+                    font-family: 'Lato';
+                    font-style: normal;
+                    font-weight: 700;
+                    src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+                }
+    
+                @font-face {
+                    font-family: 'Lato';
+                    font-style: italic;
+                    font-weight: 400;
+                    src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v11/RYyZNoeFgb0l7W3Vu1aSWOvvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+                }
+    
+                @font-face {
+                    font-family: 'Lato';
+                    font-style: italic;
+                    font-weight: 700;
+                    src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v11/HkF_qI1x_noxlxhrhMQYELO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+                }
+            }
+    
+            /* CLIENT-SPECIFIC STYLES */
+            body,
+            table,
+            td,
+            a {
+                -webkit-text-size-adjust: 100%;
+                -ms-text-size-adjust: 100%;
+            }
+    
+            table,
+            td {
+                mso-table-lspace: 0pt;
+                mso-table-rspace: 0pt;
+            }
+    
+            img {
+                -ms-interpolation-mode: bicubic;
+            }
+    
+            /* RESET STYLES */
+            img {
+                border: 0;
+                height: auto;
+                line-height: 100%;
+                outline: none;
+                text-decoration: none;
+            }
+    
+            table {
+                border-collapse: collapse !important;
+            }
+    
+            body {
+                height: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+    
+            /* iOS BLUE LINKS */
+            a[x-apple-data-detectors] {
+                color: inherit !important;
+                text-decoration: none !important;
+                font-size: inherit !important;
+                font-family: inherit !important;
+                font-weight: inherit !important;
+                line-height: inherit !important;
+            }
+    
+            /* MOBILE STYLES */
+            @media screen and (max-width:600px) {
+                h1 {
+                    font-size: 32px !important;
+                    line-height: 32px !important;
+                }
+            }
+    
+            /* ANDROID CENTER FIX */
+            div[style*="margin: 16px 0;"] {
+                margin: 0 !important;
+            }
+
+/*FOOTER*/
+
+.footer{
+	border-top: 1px solid rgba(0,0,0,.05);
+	color: rgba(0,0,0,.5);
+}
+.footer .heading{
+	color: #000;
+	font-size: 20px;
+}
+.footer ul{
+	margin: 0;
+	padding: 0;
+}
+.footer ul li{
+	list-style: none;
+	margin-bottom: 10px;
+}
+.footer ul li a{
+	color: rgba(0,0,0,1);
+}
+
+
+@media screen and (max-width: 500px) {
+
+
+}
+        </style>
+    </head>
+    
+    <body style="background-color: #000; margin: 0 !important; padding: 0 !important;">
+        <!-- HIDDEN PREHEADER TEXT -->
+        <div style="display: none; font-size: 1px; color: #000; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;"> We're thrilled to have you here! </div>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td bgcolor="#000" align="center" style="padding: 0px 10px 0px 10px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                      
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                        <tr>
+                            <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                                <p style="margin: 0;">
+                                    Hi {{notify.rent_details.tenant.full_name}},
+                                </p>
+                                House Number: {{notify.rent_details.tenant.rented_unit.unit_number}}
+                                <p> Your payment ref: {{notify.payment_code}} for {{notify.get_paid_for_month_display}} has been  {{notify.get_status_display}}.</p>
+
+                                <table class="table">
+                                    <caption> Rent Payment Details </caption>
+                                    <thead>
+                                      <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">Payment Ref</th>
+                                        <td> {{notify.payment_code}} </td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Amount</th>
+                                        <td> {{notify.rent_details.currency}} {{notify.amount}} </td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Paid On</th>
+                                        <td colspan="2"> {{notify.paid_on|naturalday}} </td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Payment Method</th>
+                                        <td colspan="2"> {{notify.payment_method}} </td>
+                                      </tr>
+                                      <tr>
+                                        <hr>
+                                      <tr>
+                                        <th scope="row">Remaining RENT</th>
+                                        <td colspan="2"> {{notify.rent_details.amount_remaining}} </td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Cleared</th>
+                                        {% if notify.rent_details.cleared %}
+                                        <td colspan="2"> cleared </td>
+                                        {% else %}
+                                        <td> Please clear before {{notify.rent_details.due_date}} </td>
+                                        {% endif %}
+                                      </tr>
+                                    </tbody>
+                                  </table>                                
+                            </td>
+                        </tr>
+                        <table style="margin: auto;">
+                            <caption> </caption>
+                            <th></th>
+                            <tr>
+                            <td class="bg_light footer email-section">
+                              <table>
+                                  <caption> </caption>
+                                  <th></th>
+                                  <tr>
+                                  <td style="padding-top: 20px;">
+                                    <table>
+                                        <caption></caption>
+                                        <th></th>
+                                      <tr>
+                                        <td style="text-align: left; padding-left: 5px; padding-right: 5px;">
+                                            <h3 class="heading">Contact Info</h3>
+                                            <ul>                                                      <li><span class="text">{{building.address_line}}</span></a></li>
+                                                      <li><span class="text">{{building.address_line}}</span></a></li>
+                                                      <li><span class="text">{{building.manager.fullname}}</span></a></li>
+                                                      <li><span class="text"><a href="tel:{{building.manager.active_phone_number}}">{{building.manager.active_phone_number}}</a></span></a></li>
+                                            </ul>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                          </tr><!-- end: tr -->
+                          <tr>
+                            <td class="bg_white" style="text-align: center;">
+                                <p>You can <a href="https://rentalhousemanagementsystem.herokuapp.com" style="color: rgba(0,0,0,.8);">Login here</a></p>
+                            </td>
+                          </tr>
+                        </table>
+                  
+                      </div>
+                    </center>
+                  </body>
+                  </html>

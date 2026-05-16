@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block metadescription %} My Mails {% endblock %}
+
+{% block content %}
+<nav class="container mt-3">
+    <ol class="breadcrumb bg-light p-2 rounded-2">
+        <li class="breadcrumb-item "><a href="{% url 'operational-buildings' %}">Home</a></li>
+        <li class="breadcrumb-item active">Communications </li>
+        <li class="breadcrumb-item active"> My Archives </li>
+    </ol>
+  </nav>
+
+<div class="container mt-4 mb-4">
+    <div class="row">
+        <div class="col-sm-3 col-md-2">
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-secondary">
+                    My Emails
+                </button>
+            </div>
+        </div>
+        </div>
+    <hr />
+    <div class="row ml-2">
+        <div class="col-sm-3 col-md-2">
+            <a href="{% url 'core:send_email_to_manager' building.slug tenant.associated_account.username %}" class="col-12 btn btn-danger btn-sm btn-block" role="button">
+                <em class="fa fa-edit"></em> COMPOSE</a>
+            <hr />
+        </div>
+        <div class="col-sm-9 col-md-10">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs mb-3">
+                <li class="nav-item">
+                    <a class="nav-link active" href="?type=inbox">
+                    <span class="fa fa-inbox"> </span> &nbsp;&nbsp;&nbsp; Inbox</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?type=sent">
+                    <span class="fa fa-user"></span>&nbsp;&nbsp;&nbsp;Sent Email</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div>
+                <div class="active">
+                    <div class="list-group">
+                        {% for c in mails %}
+                        <a href="
+                        {% if c.body %}
+                        {% url 'core:my_archive_details' building.slug tenant.associated_account.username c.ref_number %}
+                        {% else %}
+                        {% url 'core:view_tenant_archive' building.slug tenant.associated_account.username c.ref_number %}
+                        {% endif %}"
+                        class="list-group-item">
+                            <span class="fa fa-star-o"></span>
+                            <span class="name" style="min-width: 120px; display: inline-block;">{{c.ref_number}} </span>
+                                <span class="">{{ c.subject }}</span>
+                                <span class="text-muted" style="font-size: 11px;"> {{c.created|naturalday}} </span>
+                                <span class="badge"></span><span class="pull-right">
+                                    <em class="badge bg-secondary">{{ c.created|naturaltime }}</em>
+                            </span>
+                        </a>
+                        {% empty %}
+                        <div class="bg-danger">
+                            <p class="strong"> Sorry, there's nothing to display.</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

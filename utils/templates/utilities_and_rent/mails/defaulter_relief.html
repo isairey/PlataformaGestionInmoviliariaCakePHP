@@ -1,0 +1,74 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>DEFAULTER RELIEF</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+            #footer {
+                position: relative;
+                bottom: 0;
+                width: 100%;
+                height: 2.5rem;
+              }
+        </style>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <div class='header'>
+                <p class='title'> TEMPORARY RELIEF </p>
+            </div>
+        <div>
+        <div class='details'>
+            Tenant: {{defaulter.tenancy_account.full_name}} <br/>
+             &nbsp;&nbsp;&nbsp;&nbsp; House Number {{defaulter.tenancy_account.rented_unit.unit_number}} <br/>
+             Expires: {{expires|naturalday}} <br/> 
+            Status: {{status}} <br/>
+            <hr class='hrItem' />
+
+            <div>
+                &nbsp;&nbsp;&nbsp;&nbsp;{{detail|safe}}
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div id="footer">
+        <small>{{defaulter.tenancy_account.rented_unit.building.name}} - {{defaulter.tenancy_account.rented_unit.building.address_line}}</small> <br/>
+        Created {{created|naturalday}} <br/>
+<br>
+        <em>Contact Phone: {{defaulter.tenancy_account.rented_unit.building.manager.active_phone_number}} <br/>
+            Contact E-mail: {{defaulter.tenancy_account.rented_unit.building.manager.associated_account.email}}</em>
+    </div>
+    </body>
+</html>

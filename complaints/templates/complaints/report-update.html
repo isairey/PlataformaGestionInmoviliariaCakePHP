@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<nav class="container mt-3">
+  <ol class="breadcrumb bg-light p-2 rounded-2">
+      <li class="breadcrumb-item "><a href="{% url 'building-dashboard' building.slug %}">Dashboard</a></li>
+      <li class="breadcrumb-item active"> {{building.name}} </li>
+      <li class="breadcrumb-item"><a href="{% url 'reports' building.slug %}">Reports</a></li>
+      <li class="breadcrumb-item active">Reports</li>
+  </ol>
+</nav>
+
+<section class="container">
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-8 col-sm-8">
+          <h5 class="text-center card card-header mb-1">Submitted Report Attached Images <span class="fa fa-paperclip"></span> </h5>
+            <div id="hrmscarousel" class="carousel slide" data-bs-ride="carousel">
+                <!--Indicators-->
+                <ol class="carousel-indicators">
+                    {% for photo in images %}
+                    <li data-bs-target="#hrmscarousel" data-bs-slide-to="{{ forloop.counter0 }}" 
+                    class="{% if forloop.counter0 == 0 %} active {% endif %}"></li>
+                    {% endfor %}
+                </ol> <!--/.Indicators-->
+                <!--Slides-->
+                <div class="carousel-inner" role="listbox">
+                    {% for photo in images %}
+                    <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                        <img class="d-block w-100" src="{{photo.image.url}}" alt="bng_slides">
+                    </div>
+                    {% endfor %}
+                    <!--/.Slides-->
+                    <!--Controls-->
+                    <a class="carousel-control-prev" href="#hrmscarousel" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span></a>
+                    <a class="carousel-control-next" href="#hrmscarousel" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span></a>
+                </div>
+              </div>
+        </div>
+
+        <div class="container  mt-3 ">
+            <div class="row d-flex justify-content-center">
+              <div class="col-sm-8">
+                      <div class="card mb-4">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                  <p class="mb-0">Code</p>
+                                </div>
+                                <div class="col-sm-9">
+                                  <p class="text-muted mb-0">{{report.code}}</p>
+                                </div>
+                              </div>
+                              <hr>
+
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <p class="mb-0">Type</p>
+                                </div>
+                                <div class="col-sm-9">
+                                  <p class="text-muted mb-0">{{report.report_type}}</p>
+                                </div>
+                              </div>
+                              <hr>
+
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Tenant Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{report.reported_by.associated_account.first_name}}
+                                   {{report.reported_by.associated_account.last_name}}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Building</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{building.name}}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">unit</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{report.unit.unit_number}}</p>
+                            </div>
+                          </div>
+                          
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Message</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{report.desc|safe}}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Created</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{{report.created|timesince }} ago </p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p class="mb-0">Updated</p>
+                            </div>
+                            <div class="col-sm-9">
+                              <p class="text-muted mb-0">{% if report.updated %} {{report.updated|timesince }} ago {% else %} Not yet updated {% endif %}</p>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <h4 class="text-center card-header">Update Report status</h4>
+
+                    <form class="no-padding" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend></legend>
+                            {{ update_form|crispy }}
+                        </fieldset>
+                        <br>
+                        <div class="form-group text-center">
+                            <button class="btn btn-outline-primary" type="submit">Update</button>
+                        </div>
+                    </form>
+
+                    <br>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+    </div>
+</section>
+{% endblock %}

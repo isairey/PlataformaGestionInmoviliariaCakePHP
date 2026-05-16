@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% block metadescription %} Rent Invoices {% endblock %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+
+{% block content %}	
+<nav class="container mt-3">
+  <ol class="breadcrumb bg-light p-2 rounded-2">
+      <li class="breadcrumb-item "><a href="{% url 'building-dashboard' building.slug %}">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'rent-and-utilities' building.slug %}">Rent & Utilities </a></li>
+      <li class="breadcrumb-item active">Rent</li>
+  </ol>
+</nav>
+
+<section class="container border border-5" style="margin-top:2%; margin-bottom:4%;">
+    <div class="row justify-content-center">
+
+        <div class="container">
+          <!-- overview start -->
+          <div class="container card p-0 mb-2">
+            <div class="card-header text-center w-100">
+              Overview Rent Charges 
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card border-0">
+                  <div class="card-body">
+                    <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between border-0 align-items-center">
+                        <b> Tenant Name </b>
+                        <span> {{tenant.associated_account.first_name}} {{tenant.associated_account.last_name}} </span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between border-0 align-items-center">
+                          <b> Building Name </b>
+                          <span> {{tenant.rented_unit.building.name}} </span>
+                        </li>
+                      <li class="list-group-item d-flex justify-content-between border-0 align-items-center">
+                        <b>Unit</b>
+                        <span>{{tenant.rented_unit.unit_number}}</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between border-0 align-items-center">
+                          <b>Unit Status </b>
+                          <span>{{tenant.rented_unit.get_maintanance_status_display}}</span>
+                        </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="card border-0">
+                  <div class="card-body">
+                    <canvas id="tenantRentChart" data-url="{% url 'rent_chart' building.slug unit.slug tenant.associated_account.username %}">
+                    </canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Overview end-->
+    
+            <div class="row">
+              <div class="col-sm-4">                                  
+                <div>
+                    <form method='get'>
+                        {{ rent_details.form|crispy }}
+                            <br>
+                            <div class="form-group text-center">
+                                <button class="btn btn-outline-secondary" type="submit">Get</button>
+                            </div>
+                    </form>
+                    <br>
+                    <div class="list-group">
+                      <a class="list-group-item list-group-item-action" href="{% url 'add-rent' building.slug tenant.rented_unit.slug %}" role="button">
+                        Add Rent
+                      </a>
+                      <a class="list-group-item list-group-item-action" href="{% url 'manager-water-billing' building.slug unit.slug tenant.associated_account.username %}" role="button">
+                        Water Billing for {{tenant.associated_account.username}}
+                      </a>
+                      <a class="list-group-item list-group-item-action" href=" {% url 'manage_tenant_electric_bills' building.slug unit.slug tenant.associated_account.username %}" role="button">
+                        Electricity Billing for {{tenant.associated_account.username}} </a>
+                      
+                    </div>
+                  </div>
+              </div>
+
+              <div class="col-sm-8 m                                                                                ">
+                <div class="row">
+                  <div class="col-12">
+                      <div class="card card-body"> 
+                          <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                          <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <caption> Added Rent </caption>
+                            <thead>
+                              <tr>
+                                <th scope="col"> Code </th> 
+                                <th scope="col">Unit</th>
+                                <th scope="col">Rent Amount</th>
+                                <th scope="col"> Amount Paid </th>
+                                <th scope="col"> For Month </th>
+                                <th scope="col"> From </th>
+                                <th scope="col"> To </th>
+                                <th scope="col"> Due Date </th>
+                                <th scope="col"> Status </th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody id='ourTable'>
+                        {% for rent in rent_details.qs %}
+                        <tr>
+                          <th scope="row"> {{rent.code}} </th>
+                            <th scope="row" > {{rent.unit.unit_number}} </th>
+                            <td> {{rent.rent_amount|intcomma}}</td>
+                            <td> {{rent.amount_paid|intcomma}}</td>
+                            <td> {{rent.pay_for_month}} </td>
+                            <td> {{rent.start_date|naturalday}} </td>
+                            <td> {{rent.end_date|naturalday}} </td>
+                            {% if rent.cleared %}
+                            <td> <del> {{rent.due_date|naturaltime}} </del></td>
+                            {% else %}
+                            <td> {{rent.due_date|naturaltime}} </td>
+                            {% endif %}
+                            <td> {{rent.status}}</td>
+                            {% if rent.cleared %}
+                            <td> Cleared </td>
+                            {% else %}
+                            <td> Not Cleared </td>
+                            {% endif %}
+                            <td> <a href="{% url 'view-update-rent' building.slug unit.slug rent.tenant.associated_account.username rent.code %}">
+                                Details|update </a> </td>
+                        {% empty %}
+                        <tbody>
+                            <tr>
+                              <td>
+                          <p> Nothing to display! </p>
+                              </td>
+                            </tr>
+                        {% endfor %}
+                          </tbody>
+                          </table>
+                        </div>
+
+                    </tr>
+                </tbody>
+                      </ul> 
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+{% endblock %}
