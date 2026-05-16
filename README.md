@@ -220,7 +220,7 @@ Este módulo administra órdenes de trabajo y personal.
 # 📂 Estructura del proyecto
 
 ```bash
-rental-house-management-system/
+PlataformaGestionInmoviliariaCakePHP/
 │
 ├── accounts/                 # Gestión de usuarios
 ├── complaints/               # Reportes y quejas
@@ -257,7 +257,7 @@ rental-house-management-system/
 ## 1️⃣ Clonar repositorio
 
 ```bash
-git clone https://github.com/isairey/rental-house-management-system.git
+git clone https://github.com/isairey/PlataformaGestionInmoviliariaCakePHP.git
 ```
 
 ---
@@ -458,7 +458,7 @@ git push origin feature/nueva-funcionalidad
 
 <div align="center">
 
-## RHMS Team — Django Developers
+## Isai Reyes — Django Developer
 
 Desarrolladores apasionados por plataformas inmobiliarias y automatización administrativa 🚀
 
